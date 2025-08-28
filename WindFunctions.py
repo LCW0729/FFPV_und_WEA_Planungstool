@@ -823,7 +823,7 @@ def packing_wind(lat_center, lon_center, radius_meters, min_spacing_x, min_spaci
     return m2, len(turbine_points)
 
 @st.cache_data(show_spinner=False)
-def get_weather_for_windpowerlib(lat, lon, year=2024, months=None, folder=r"data\era5_germany_2024_wind"):
+def get_weather_for_windpowerlib(lat, lon, year=2024, months=None, folder=r"data/era5_germany_2024_wind"):
     if months is None:
         months = list(range(1, 13))
 
