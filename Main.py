@@ -2,9 +2,10 @@ import streamlit as st
 from streamlit_folium import st_folium
 from streamlit.components.v1 import html
 import folium
+import time
 from folium.plugins import Draw, MousePosition
 from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut
+from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 from pyproj import CRS, Transformer
 
 # streamlit run C:\Users\leech\Desktop\Quellcode\Main.py
@@ -91,17 +92,22 @@ location = None
 
 # Step 4: Perform geocoding only when query is new
 if location_input and location_input != st.session_state['last_query']:
-    try:
-        locations = geolocator.geocode(location_input, exactly_one=False, addressdetails=True, limit=5)
-        if locations:
-            st.session_state['geocoded_results'] = locations
-            st.session_state['last_query'] = location_input
-        else:
-            st.warning("Keine Adresse gefunden")
-            st.session_state['geocoded_results'] = None
-    except (GeocoderTimedOut, "GeocoderServiceError") as e:
-        st.error(f"Geocoding error: {e}")
-        st.session_state['geocoded_results'] = None
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            locations = geolocator.geocode(location_input, exactly_one=False, addressdetails=True, limit=5)
+            if locations:
+                st.session_state['geocoded_results'] = locations
+                st.session_state['last_query'] = location_input
+            else:
+                st.warning("Keine Adresse gefunden")
+                st.session_state['geocoded_results'] = None
+        except (GeocoderTimedOut, GeocoderServiceError) as e:
+            if attempt < max_retries - 1:
+                time.sleep(1)
+            else:
+                st.error(f"Geocoding error: {e}")
+                st.session_state['geocoded_results'] = None
 
 # Step 5: Show dropdown and update map if results exist
 if st.session_state['geocoded_results']:
