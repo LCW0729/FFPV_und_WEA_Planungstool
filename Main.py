@@ -452,7 +452,7 @@ if st.session_state["second_map"] and "second_map_html" in st.session_state:
                             <div><i style="background: gray;" class="legend-icon"></i> Verkehr</div>
                             <div><i style="background: green;" class="legend-icon"></i> Landnutzung</div>
                             <div><i style="background: red;" class="legend-icon"></i> Gebäude</div>
-                            <div><i style="background: blue;" class="legend-icon"></i> Wasser</div>
+                            <div><i style="background: blue;" class="legend-icon"></i> Gewässer</div>
                             <div><i style="background: purple;" class="legend-icon"></i> Schutzgebiet</div>
                             <div><i style="background: orange;" class="legend-icon"></i> Stromleitung</div>
                         </div>
@@ -621,7 +621,7 @@ if st.session_state["second_map"] and "second_map_html" in st.session_state:
                             <div><i style="background: gray;" class="legend-icon"></i> Verkehr</div>
                             <div><i style="background: green;" class="legend-icon"></i> Landnutzung</div>
                             <div><i style="background: red;" class="legend-icon"></i> Gebäude</div>
-                            <div><i style="background: blue;" class="legend-icon"></i> Wasser</div>
+                            <div><i style="background: blue;" class="legend-icon"></i> Gewässer</div>
                             <div><i style="background: purple;" class="legend-icon"></i> Schutzgebiet</div>
                             <div><i style="background: orange;" class="legend-icon"></i> Stromleitung</div>
                         </div>

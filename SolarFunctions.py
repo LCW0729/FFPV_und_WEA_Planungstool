@@ -342,7 +342,7 @@ def packing_solar(lat_center, lon_center, radius_meters, solar_panel_width, sola
         "Verkehr": "gray",
         "Landnutzung": "green",
         "Gebäude": "red",
-        "Wasser": "blue",
+        "Gewässer": "blue",
         "Schutzgebiet": "purple",
         "Stromleitung": "orange",
     }
