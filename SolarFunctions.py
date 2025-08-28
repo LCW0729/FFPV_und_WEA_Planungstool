@@ -450,7 +450,7 @@ def simulate_solarfarm_output(lat_center, lon_center, num_panels):
     
     modelchain = ModelChain(system, location, aoi_model="no_loss")
     
-    times = pd.date_range(start='2024-01-01', end='2024-12-31', freq='H', tz=location.tz)
+    times = pd.date_range(start='2024-01-01', end='2024-12-31', freq='h', tz=location.tz)
     clear_sky = location.get_clearsky(times)
 
     # pvlib's Perez transposition model (default) expects additional columns.
