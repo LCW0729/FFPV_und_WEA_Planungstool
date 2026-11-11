@@ -44,7 +44,7 @@ def fetch_obstacles_wind(output, center, status_box, min_spacing_x, min_spacing_
 
     # Fetch features from OSM using osmnx and return empty GeoDataFrame if no features found
     try:
-        features = features_from_bbox_with_fallback((west, south, east, north), tags)
+        features = features_from_bbox_with_fallback((west, south, east, north), tags, status_box)
     except ox._errors.InsufficientResponseError:
         return gpd.GeoDataFrame({'buffered_geometry': []}, geometry='buffered_geometry', crs="EPSG:4326")
 
