@@ -11,9 +11,13 @@ def features_from_bbox_with_fallback(bbox, tags):
     for url in OVERPASS_URLS:
         ox.settings.overpass_url = url
         try:
-            return ox.features_from_bbox(bbox, tags=tags)
+            features = ox.features_from_bbox(bbox, tags=tags)
+            print(f"[Overpass] OK: {url}")
+            return features
         except ox._errors.InsufficientResponseError:
-            raise  # no data in the area, handled by the callers
-        except Exception as e:  # connection refused, timeout, HTTP 429/504, ...
+            print(f"[Overpass] OK (no features in area): {url}")
+            raise
+        except Exception as e:
+            print(f"[Overpass] FAILED: {url} -> {type(e).__name__}: {e}")
             last_error = e
     raise last_error
