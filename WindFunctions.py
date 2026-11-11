@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 from pyproj import CRS, Transformer
 import osmnx as ox
+from osm_utils import features_from_bbox_with_fallback
 import geopandas as gpd
 import random
 import os
@@ -43,7 +44,7 @@ def fetch_obstacles_wind(output, center, status_box, min_spacing_x, min_spacing_
 
     # Fetch features from OSM using osmnx and return empty GeoDataFrame if no features found
     try:
-        features = ox.features_from_bbox((west, south, east, north), tags=tags)
+        features = features_from_bbox_with_fallback((west, south, east, north), tags)
     except ox._errors.InsufficientResponseError:
         return gpd.GeoDataFrame({'buffered_geometry': []}, geometry='buffered_geometry', crs="EPSG:4326")
 
