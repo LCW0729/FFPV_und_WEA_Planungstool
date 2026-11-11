@@ -1,4 +1,6 @@
 import osmnx as ox
+import streamlit as st
+
 ox.settings.overpass_rate_limit = False  # skip /status pre-check that hung last time
 ox.settings.requests_timeout = 60
 ox.settings.http_user_agent = "ffpv-wea-planungstool (Bachelorarbeit, contact: your-email@example.com)"
@@ -11,8 +13,7 @@ OVERPASS_URLS = [
     "https://maps.mail.ru/osm/tools/overpass/api",
 ]
 
-def features_from_bbox_with_fallback(bbox, tags):
-    last_error = None
+def features_from_bbox_with_fallback(bbox, tags, status_box=None):
     for url in OVERPASS_URLS:
         ox.settings.overpass_url = url
         try:
@@ -24,5 +25,10 @@ def features_from_bbox_with_fallback(bbox, tags):
             raise
         except Exception as e:
             print(f"[Overpass] FAILED: {url} -> {type(e).__name__}: {e}")
-            last_error = e
-    raise last_error
+
+    msg = "OSM-Server nicht erreichbar. Bitte später erneut versuchen und den Kreis neu zeichnen."
+    if status_box is not None:
+        status_box.error(msg)  # replaces the stale "Hindernisse aus OSM abrufen..." message
+    else:
+        st.error(msg)
+    st.stop()
