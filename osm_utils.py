@@ -1,11 +1,14 @@
 import osmnx as ox
-ox.settings.overpass_rate_limit = False  # skip the /status pre-check that hangs
-ox.settings.requests_timeout = 60        # default 180 s makes each failed mirror cost 3 minutes
+ox.settings.overpass_rate_limit = False  # skip /status pre-check that hung last time
+ox.settings.requests_timeout = 60
+ox.settings.http_user_agent = "ffpv-wea-planungstool (Bachelorarbeit, contact: your-email@example.com)"
+ox.settings.http_referer = "https://planungstool.streamlit.app/"
 
 OVERPASS_URLS = [
     "https://overpass-api.de/api",
+    "https://ovp.dresel.systems/api",
     "https://overpass.private.coffee/api",
-    "https://overpass.kumi.systems/api",
+    "https://maps.mail.ru/osm/tools/overpass/api",
 ]
 
 def features_from_bbox_with_fallback(bbox, tags):
