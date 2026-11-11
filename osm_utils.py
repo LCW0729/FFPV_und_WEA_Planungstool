@@ -1,4 +1,6 @@
 import osmnx as ox
+ox.settings.overpass_rate_limit = False  # skip the /status pre-check that hangs
+ox.settings.requests_timeout = 60        # default 180 s makes each failed mirror cost 3 minutes
 
 OVERPASS_URLS = [
     "https://overpass-api.de/api",
